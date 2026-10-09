@@ -2,8 +2,6 @@ import { lazy, Suspense } from "react"
 import { BrowserRouter,Routes,Route,useNavigate } from  "react-router-dom"
 import Home from "./components/Home"
 import Dashboard from "./components/Dashboard"
-// import Career from "./components/Career"
-// import About from "./components/About"
 const Career = lazy(()=>import( "./components/Career" ));
 const About = lazy(()=>import("./components/About"));
 
@@ -14,11 +12,14 @@ function App () {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<Dashboard/>}/>
-        <Route path="/career" element={<Suspense fallback={"loading...."}><Career/></Suspense>}/>
-        <Route path="/about" element={<Suspense fallback={"loading....."}><About/></Suspense>}/> 
+        <Route path="/career" element={<Suspense fallback={<Loader/>}><Career/></Suspense>}/>
+        <Route path="/about" element={<Suspense fallback={<Loader/>}><About/></Suspense>}/> 
       </Routes>
     </BrowserRouter>
   </>
+}
+function Loader () {
+  return <h1 style={{color:"red"}}>Loading ....</h1>
 }
 function Nav () {
   const navigate = useNavigate();
